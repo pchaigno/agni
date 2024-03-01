@@ -14,6 +14,6 @@ jobs:
           cd ${{ github.workspace }}
           python3 generate_encodings.py --kernver 6.7 --kernbasedir ~/linux --outdir bpf-encodings/6.7 --specific-op BPF_SYNC
       - name:
-        run |
+        run: |
           pwd
           ls
