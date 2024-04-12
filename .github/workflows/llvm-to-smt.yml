@@ -26,6 +26,9 @@ jobs:
             libjsoncpp-dev
       - name: Check out repository code
         uses: actions/checkout@v4
+      - name: Show memory usage
+        run: |
+          cat /proc/meminfo
       - name: Install Python dependencies
         run: |
           pip install -r requirements.txt
