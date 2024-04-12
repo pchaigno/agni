@@ -51,7 +51,8 @@ jobs:
             --kernver $kernver --commit $commit \
             --kernbasedir "${{ github.workspace }}/linux" \
             --outdir ../bpf-encodings/${{ matrix.kernel }} \
-            --specific-op ${{ matrix.insn }}
+            --specific-op ${{ matrix.insn }} || echo "WE FAILED!!!!!!!"
+          /home/runner/work/agni/agni/llvm-to-smt/llvm-passes/force_functions_early_exit.sh /home/runner/work/agni/agni/bpf-encodings/${{ matrix.kernel }}/BPF_AND/BPF_AND.Oz.ll /home/runner/work/agni/agni/bpf-encodings/${{ matrix.kernel }}/BPF_AND BPF_AND.Oz.ffee.ll
       - name: Check
         run: |
           ls bpf-encodings/${{ matrix.kernel }}
