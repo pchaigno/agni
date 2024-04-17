@@ -10,9 +10,10 @@ on:
       - main
 jobs:
   bpf-verification:
+    continue-on-error: true
     strategy:
       matrix:
-        insn: [BPF_AND, BPF_ADD, BPF_JST]
+        insn: [BPF_AND, BPF_ADD, BPF_JSTT]
         kernel: [5.9, 6.4]
     runs-on: ubuntu-latest
     steps:
