@@ -13,7 +13,7 @@ jobs:
     continue-on-error: true
     strategy:
       matrix:
-        insn: [BPF_AND, BPF_ADD, BPF_JSTT]
+        insn: [BPF_AND, BPF_ADD, BPF_JSLT]
         kernel: [5.9, 6.4]
     runs-on: ubuntu-latest
     steps:
