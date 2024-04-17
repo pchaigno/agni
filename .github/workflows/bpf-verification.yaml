@@ -12,7 +12,7 @@ jobs:
   bpf-verification:
     strategy:
       matrix:
-        insn: [BPF_AND]
+        insn: [BPF_AND, BPF_ADD, BPF_JST]
         kernel: [5.9, 6.4]
     runs-on: ubuntu-latest
     steps:
