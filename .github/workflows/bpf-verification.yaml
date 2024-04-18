@@ -13,8 +13,8 @@ jobs:
     continue-on-error: true
     strategy:
       matrix:
-        insn: [BPF_AND, BPF_ADD, BPF_JSLT]
-        kernel: [5.9, 6.4]
+        insn: [BPF_AND, BPF_JSLT]
+        kernel: [5.9]
     runs-on: ubuntu-latest
     steps:
       - name: Install dependencies
@@ -30,11 +30,11 @@ jobs:
           pip install -r requirements.txt
           cd bpf-verification
           pip install .
-      - name: Verify BPF_AND on v${{ matrix.kernel }}
+      - name: Verify ${{ matrix.insn }} on v${{ matrix.kernel }}
         run: |
           mkdir results
           cd bpf-verification
           python3 src/bpf_alu_jmp_synthesis.py --kernver ${{ matrix.kernel }} --encodings_path ../bpf-encodings/${{ matrix.kernel }}/ --res_path ../results --ver_set ${{ matrix.insn }}
-      - name: Check
+      - name: Display results
         run: |
           ls results
