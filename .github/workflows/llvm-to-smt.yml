@@ -32,7 +32,9 @@ jobs:
           clang-12 --version
           whereis clang
           clang --version
+          echo "update-alternatives called..."
           sudo update-alternatives --install /usr/bin/clang clang /usr/bin/clang-12 100
+          echo $?
           whereis clang
           clang --version
       - name: Install Python dependencies
