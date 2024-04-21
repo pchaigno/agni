@@ -26,16 +26,12 @@ jobs:
             libjsoncpp-dev stress-ng
       - name: Check out repository code
         uses: actions/checkout@v4
-      - name: Show memory usage
+      - name: Show clang version(s)
         run: |
-          cat /proc/meminfo
-          stress-ng --vm-bytes 7000000000 -m 1 -t 60
-          echo "The 7G allocation worked."
-          stress-ng --vm-bytes 7000000000 -m 1 -t 60 &
-          sleep 30
-          cat /proc/meminfo
-          sleep 40
+          whereis clang
           clang --version
+          whereis clang-12
+          clang-12 --version
       - name: Install Python dependencies
         run: |
           pip install -r requirements.txt
