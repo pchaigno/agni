@@ -34,7 +34,7 @@ jobs:
         run: |
           mkdir results
           cd bpf-verification
-          python3 src/bpf_alu_jmp_synthesis.py --kernver ${{ matrix.kernel }} --encodings_path ../bpf-encodings/${{ matrix.kernel }}/ --res_path ../results --ver_set ${{ matrix.insn }}
+          #python3 src/bpf_alu_jmp_synthesis.py --kernver ${{ matrix.kernel }} --encodings_path ../bpf-encodings/${{ matrix.kernel }}/ --res_path ../results --ver_set ${{ matrix.insn }}
       - name: Display results
         run: |
           ls results

@@ -27,6 +27,8 @@ jobs:
           # Necessary because on latest Ubuntu, LLVM 14 is the default.
           sudo rm /usr/bin/clang
           sudo ln -s /usr/bin/clang-12 /usr/bin/clang
+          sudo rm /usr/bin/clang++
+          sudo ln -s /usr/bin/clang++-12 /usr/bin/clang++
           sudo rm /usr/bin/llvm-link
           sudo ln -s /usr/bin/llvm-link-12 /usr/bin/llvm-link
       - name: Check out repository code
