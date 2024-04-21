@@ -24,20 +24,11 @@ jobs:
             python3 python3-pip \
             make cmake libelf-dev \
             libjsoncpp-dev stress-ng
-      - name: Check out repository code
-        uses: actions/checkout@v4
-      - name: Show clang version(s)
-        run: |
-          whereis clang-12
-          clang-12 --version
-          whereis clang
-          clang --version
+          # Necessary because on latest Ubuntu, clang points to clang-14 by default.
           sudo rm /usr/bin/clang
           sudo ln -s /usr/bin/clang-12 /usr/bin/clang
-          whereis clang
-          clang --version
-          ls -l /usr/bin/clang
-          ls -l /etc/alternatives/clang*
+      - name: Check out repository code
+        uses: actions/checkout@v4
       - name: Install Python dependencies
         run: |
           pip install -r requirements.txt
@@ -47,7 +38,7 @@ jobs:
           if [ "${{ matrix.kernel }}" = "latest" ]; then
             branch=master
           fi
-          #git clone -qb $branch --depth 1 git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
+          git clone -qb $branch --depth 1 git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
       - name: Generate encodings
         run: |
           cd "${{ github.workspace }}/linux"
@@ -59,12 +50,12 @@ jobs:
           if [ "${{ matrix.kernel }}" = "latest" ]; then
             kernver="6.9-rc3"
           fi
-          # python3 generate_encodings.py \
-            # --kernver $kernver --commit $commit \
-            # --kernbasedir "${{ github.workspace }}/linux" \
-            # --outdir ../bpf-encodings/${{ matrix.kernel }} \
-            # --specific-op ${{ matrix.insn }} || echo "WE FAILED!!!!!!!"
-          # /home/runner/work/agni/agni/llvm-to-smt/llvm-passes/force_functions_early_exit.sh /home/runner/work/agni/agni/bpf-encodings/${{ matrix.kernel }}/BPF_AND/BPF_AND.Oz.ll /home/runner/work/agni/agni/bpf-encodings/${{ matrix.kernel }}/BPF_AND BPF_AND.Oz.ffee.ll
+          python3 generate_encodings.py \
+            --kernver $kernver --commit $commit \
+            --kernbasedir "${{ github.workspace }}/linux" \
+            --outdir ../bpf-encodings/${{ matrix.kernel }} \
+            --specific-op ${{ matrix.insn }}
+          #/home/runner/work/agni/agni/llvm-to-smt/llvm-passes/force_functions_early_exit.sh /home/runner/work/agni/agni/bpf-encodings/${{ matrix.kernel }}/BPF_AND/BPF_AND.Oz.ll /home/runner/work/agni/agni/bpf-encodings/${{ matrix.kernel }}/BPF_AND BPF_AND.Oz.ffee.ll
       - name: Check
         run: |
           ls bpf-encodings/${{ matrix.kernel }}
