@@ -37,6 +37,7 @@ jobs:
           echo $?
           whereis clang
           clang --version
+          ls -l /usr/bin/clang*
       - name: Install Python dependencies
         run: |
           pip install -r requirements.txt
