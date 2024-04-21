@@ -35,6 +35,7 @@ jobs:
           sleep 30
           cat /proc/meminfo
           sleep 40
+          clang --version
       - name: Install Python dependencies
         run: |
           pip install -r requirements.txt
