@@ -32,9 +32,8 @@ jobs:
           clang-12 --version
           whereis clang
           clang --version
-          echo "update-alternatives called..."
-          sudo update-alternatives --install /usr/bin/clang clang /usr/bin/clang-12 100
-          echo $?
+          sudo rm /usr/bin/clang
+          sudo ln -s /usr/bin/clang-12 /usr/bin/clang
           whereis clang
           clang --version
           ls -l /usr/bin/clang
@@ -48,7 +47,7 @@ jobs:
           if [ "${{ matrix.kernel }}" = "latest" ]; then
             branch=master
           fi
-          git clone -qb $branch --depth 1 git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
+          #git clone -qb $branch --depth 1 git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
       - name: Generate encodings
         run: |
           cd "${{ github.workspace }}/linux"
