@@ -32,8 +32,9 @@ jobs:
           stress-ng --vm-bytes 7000000000 -m 1 -t 60
           echo "The 7G allocation worked."
           stress-ng --vm-bytes 7000000000 -m 1 -t 60 &
+          sleep 30
           cat /proc/meminfo
-          sleep 70
+          sleep 40
       - name: Install Python dependencies
         run: |
           pip install -r requirements.txt
